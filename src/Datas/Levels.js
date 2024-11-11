@@ -1,7 +1,7 @@
 const levels = [
     {id:1, name: 'LVL1', min: 0, max: 250, fantasyName: 'fn_lvl1' },
-    {id:2, name: 'LVL3', min: 501, max: 1000, fantasyName: '' },
-    {id:3, name: 'LVL2', min: 251, max: 500, fantasyName: '' },
+    {id:2, name: 'LVL2', min: 251, max: 500, fantasyName: 'fn_lvl2' },
+    {id:3, name: 'LVL3', min: 501, max: 1000, fantasyName: '' },    
     {id:4, name: 'LVL4', min: 1001, max: 2000, fantasyName: '' },
     {id:5, name: 'LVL5', min: 2001, max: 5000, fantasyName: '' },
     {id:6, name: 'LVL6', min: 5001, max: 8000, fantasyName: '' },
@@ -12,6 +12,7 @@ const levels = [
 ]
 
 export const getLevelName = (level) => {
+    console.log(level);
     return levels.filter((l) => l.name === `LVL${level}`)[0].name
 }
 export const getLevelMin = (level) => {

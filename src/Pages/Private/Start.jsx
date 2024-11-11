@@ -7,11 +7,11 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProfileBox from '../../Widgets/Private/ProfileBox';
 import MyStorage from '../../Utils/MyStorage';
+import { UserModel } from '../../Datas/Models/UserModel';
+import DemoAlert from '../../Widgets/Private/DemoAlert';
 
 const Start = () => {
     const { t, i18n } = useTranslation();
-    
-
     return (
         <div className="h-100 d-flex justify-content-center align-items-center">
             <div className="loginLayout"><SwitchLang onlyBrandImage={true}/></div>
@@ -21,10 +21,11 @@ const Start = () => {
                         <ListGroupItem as={Link} to="/prepare_singleplayer">{t('mode_singleplayer')}</ListGroupItem>
                         <ListGroupItem as={Link} disabled className="disabled" to="/prepare_game">{t('mode_multiplayer')}</ListGroupItem>
                         <ListGroupItem style={{borderBottom:'1px solid transparent'}} as={Link} disabled className="disabled" to="/prepare_game">{t('mode_champion')}</ListGroupItem>
-                        <ListGroupItem as={Link} to="/scoreboard">{t('scoreboard')}</ListGroupItem>
+                        {/*<ListGroupItem as={Link} to="/scoreboard">{t('scoreboard')}</ListGroupItem>*/}
                     </ListGroup>
                 </div>
                 <ProfileBox />
+                <DemoAlert />
             </div>            
         </div>
     );

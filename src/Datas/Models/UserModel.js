@@ -3,8 +3,18 @@ import MyStorage from "../../Utils/MyStorage";
 export const UserModel = (function () {
     const privateData = new WeakMap();
     return class User {
-        constructor(uid,username,email,avatar,country,credits,exp,level,perm){ privateData.set(this, {uid,username,email,avatar,country,credits,exp,level,perm}); }
-        __get(key){ return privateData.get(this)[key] || false; }
+        constructor(uid,username,email,avatar,country,credits,exp,level,perm){
+            privateData.set(
+                this, 
+                {uid,username,email,avatar,country,credits,exp,level,perm
+
+                }
+            ); 
+        }
+        __get(key){ 
+            //console.log(key, privateData.get(this)[key]);
+            return privateData.get(this)[key]; 
+        }
         __set(key, val){ 
             privateData.get(this)[key] = val; 
             this.save();

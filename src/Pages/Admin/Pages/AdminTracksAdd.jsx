@@ -158,7 +158,7 @@ const AdminTracksAdd = () => {
 
     /*Render*/
     return (
-        <Container style={{ paddingTop: '55px' }}>
+        <Container style={{ paddingTop: '75px' }}>
             <Form onSubmit={createTrackEvent}>
                 <Row>
                     <Col>

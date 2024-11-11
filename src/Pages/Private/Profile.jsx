@@ -35,7 +35,7 @@ const Profile = () => {
                                 {(user.__get('country') !== "N/A") && (<img style={{ position: 'relative', top: '-1px', left: '5px' }} src={`https://flagsapi.com/${user.__get('country')}/shiny/24.png`} alt="flag" />)}
                                 <div className="displayLevel">
                                     <span className="levelName">{getLevelName(user.__get('level'))}</span>
-                                    <progress style={{color:"#000"}} className="levelProgress" min={getLevelMin(user.__get('level'))} max={getLevelMax(user.__get('level'))} value={user.exp}/>
+                                    <progress style={{color:"#000"}} className="levelProgress" min={getLevelMin(user.__get('level'))} max={getLevelMax(user.__get('level'))} value={user.__get('exp')}/>
                                     <span className="levelName" style={{position:'relative',left:'15px'}}> {user.__get('exp')} / {getLevelMaxInMySkill(user.__get('exp'))}</span>
                                 </div>
                             </div>

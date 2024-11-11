@@ -18,10 +18,17 @@ const PointIcon = new Icon({
     iconAnchor: [10,32],
     popupAnchor: [0,0]
 })
+const Default = new Icon({
+    iconUrl: '../../images/markers/default.png',
+    iconSize: [20,32],
+    iconAnchor: [10,32],
+    popupAnchor: [0,0]
+})
 
 
 export const icons = {
     start: startIcon,
     finish: FinishIcon,
-    point: PointIcon
+    point: PointIcon,
+    default: Default
 };

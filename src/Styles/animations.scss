@@ -6,6 +6,10 @@ $tfuncs: ease, ease-in, ease-out, ease-in-out;
 .anim-infinite{ animation-iteration-count: infinite; }
 
 
+.animDemo{
+  animation: zoom-in-out-infinite 1.5s ease-in-out infinite;
+}
+
 
 
 .animZoom{animation-name: zoom-in-out-infinite;}
