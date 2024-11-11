@@ -1,0 +1,16 @@
+$times: 30,60,90;
+@each $time in $times{ .anim-#{$time}{ animation-duration: #{$time}s; } }
+$tfuncs: ease, ease-in, ease-out, ease-in-out;
+@each $tf in $tfuncs{ .anim-#{$tf}{ animation-timing-function: #{$tf}; } }
+
+.anim-infinite{ animation-iteration-count: infinite; }
+
+
+
+
+.animZoom{animation-name: zoom-in-out-infinite;}
+@keyframes zoom-in-out-infinite {
+    0% { scale: 100%; }
+    50% { scale: 150%; }
+    100% { scale: 100%; }
+}

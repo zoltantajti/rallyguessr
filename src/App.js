@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import "./Styles/_App.scss";
+import PublicRoute, { PrivateRoute, AdminRoute } from "./Contexts/AuthContext";
+import Index from "./Pages/Index";
+import Privacy from "./Pages/Privacy";
+import Terms from "./Pages/Terms";
+import Login from "./Pages/Auth/Login";
+import Register from "./Pages/Auth/Register";
+import Activate from "./Pages/Auth/Activate";
+import Start from "./Pages/Private/Start";
+import Profile from "./Pages/Private/Profile";
+import Account from "./Pages/Private/Account";
+import AdminIndex from "./Pages/Admin/AdminIndex";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route element={<PublicRoute />} >
+        <Route path="/" element={<Index />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/activate" element={<Activate />} />
+      </Route>
+      <Route element={<PrivateRoute />} >
+        <Route path="/start" element={<Start />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/account" element={<Account />} />
+
+        <Route element={<AdminRoute />} >
+          <Route path="/admin/*" element={<AdminIndex />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 

@@ -1,0 +1,13 @@
+:root {
+    /*Colors*/
+    --black: 0,0,0;
+    --bgColor: #1a1a2e;
+    --orange-50: #ffa43d;
+    --orange-70: #bc7a30;
+
+    /*Variables*/
+    --default_transition: ease-in-out 0.2s all;
+}
+
+.color-white{ color: #fff !important; }
+.color-yellow{ color: var(--orange-50) !important; }

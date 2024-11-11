@@ -1,0 +1,63 @@
+.adminPanel{
+    color: #fff;
+}
+/*BreadCrumb*/
+.adminPanel .btn-styled-breadcrumb ol.breadcrumb{
+    margin-bottom: 0 !important;
+    border: 1px solid #fff;
+    border-radius: 10px;
+}
+.adminPanel .btn-styled-breadcrumb .btn.btn-outline-light{
+    border-radius: 0px;
+    border: 0px solid transparent;
+}
+.adminPanel .btn-styled-breadcrumb .btn.btn-outline-light:not(.active) a,
+.adminPanel .breadcrumb-item + .breadcrumb-item:not(.active)::before
+{
+    color:#fff;
+    text-decoration:none;
+}
+.adminPanel .btn-styled-breadcrumb .btn.btn-outline-light.active,
+.adminPanel .breadcrumb-item + .breadcrumb-item.active::before
+{
+    color:#000
+}
+.adminPanel .breadcrumb-item{
+    position:relative;
+    left: 2px;
+}
+.adminPanel .breadcrumb-item.active{
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+}
+
+/*Form styled*/
+.form-floating label{
+    color:#12121f;
+}
+
+/*AdminMap*/
+.leaflet-routing-container{ display: none !important; }
+
+/*OffCanvas*/
+.adminOffCanvas.offcanvas, .adminOffCanvas.offcanvas .offcanvas-body, .adminOffCanvas.offcanvas .list-group-item{
+    background-color: #12121f !important;
+}
+.adminOffCanvas.offcanvas .accordion-body.list-group{
+    padding: 0;
+}
+.adminOffCanvas.offcanvas .list-group-item{
+    border: 0px solid rgba(255,255,255,0.5);
+    border-radius: 0;
+}
+.adminOffCanvas.offcanvas .accordion-button{
+    padding: 2px 10px;
+    transition: ease-in-out 0.2s all;
+}
+.adminOffCanvas.offcanvas .accordion-button:hover{
+    transform: scale(1.02);
+}
+.adminOffCanvas.offcanvas .accordion-button.simple::after{
+    --bs-accordion-btn-icon: inherit;
+    --bs-accordion-btn-active-icon: inherit;
+}
