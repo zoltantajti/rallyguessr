@@ -15,13 +15,16 @@ import PrepareSinglePlayer from "./Pages/SinglePlayer/PrepareSinglePlayer";
 import SinglePlayerGame from "./Pages/SinglePlayer/SinglePlayerGame";
 import Scoreboard from "./Pages/Private/Scoreboard";
 import ProfileExternal from "./Pages/Private/ProfileExternal";
+import PrepareMultiPlayer from "./Pages/Multiplayer/PrepareMultiPlayer";
+import MPMatchmaking from "./Pages/Multiplayer/MPMatchmaking";
+import { WSProvider } from "./WebSocket/WSProvider";
 
 function App() {
   return (
     <Routes>
       <Route path="/profile/:uid" element={<ProfileExternal />} />
       <Route element={<PublicRoute />} >
-        <Route path="/" element={<Index />} />        
+        <Route path="/" element={<Index />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/login" element={<Login />} />
@@ -31,12 +34,17 @@ function App() {
       <Route element={<PrivateRoute />} >
         <Route path="/start" element={<Start />} />
         <Route path="/profile" element={<Profile />} />
-        
+
         <Route path="/account" element={<Account />} />
+        {/*Singleplayer*/}
         <Route path="/prepare_singleplayer" element={<PrepareSinglePlayer />} />
         <Route path="/game/singleplayer" element={<SinglePlayerGame />} />
-        <Route path="/scoreboard" element={<Scoreboard />} />
-        
+        {/*Multiplayer*/}
+        <Route element={<WSProvider />}>
+          <Route path="/prepare_multiplayer" element={<PrepareMultiPlayer />} />
+          <Route path="/game/matchmaking" element={<MPMatchmaking />} />
+          <Route path="/scoreboard" element={<Scoreboard />} />
+        </Route>
         <Route element={<AdminRoute />} >
           <Route path="/admin/*" element={<AdminIndex />} />
         </Route>

@@ -4,19 +4,19 @@ import { UserModel } from '../Datas/Models/UserModel';
 
 const PublicRoute = () => {
     const user = UserModel.load();
-    if(user !== null) return <Navigate to="/start" />
+    if(user) return <Navigate to="/start" />
     return <Outlet />
 };
 
 const PrivateRoute = () => {
     const user = UserModel.load();
-    if(user === null) return <Navigate to="/login" />
+    if(!user) return <Navigate to="/login" />
     return <Outlet />;
 }
 
 const AdminRoute = () => {
     const user = UserModel.load();
-    if(user !== null && user.__get('perm') >= 90) return <Outlet />
+    if(user && user.__get('perm') >= 90) return <Outlet />
     return <Navigate to="/start" />
 }
 
