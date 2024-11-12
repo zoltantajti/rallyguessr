@@ -18,6 +18,7 @@ import ProfileExternal from "./Pages/Private/ProfileExternal";
 import PrepareMultiPlayer from "./Pages/Multiplayer/PrepareMultiPlayer";
 import MPMatchmaking from "./Pages/Multiplayer/MPMatchmaking";
 import { WSProvider } from "./WebSocket/WSProvider";
+import MultiPlayerDuel from "./Pages/Multiplayer/MultiPlayerDuel";
 
 function App() {
   return (
@@ -43,8 +44,9 @@ function App() {
         <Route element={<WSProvider />}>
           <Route path="/prepare_multiplayer" element={<PrepareMultiPlayer />} />
           <Route path="/game/matchmaking" element={<MPMatchmaking />} />
-          <Route path="/scoreboard" element={<Scoreboard />} />
+          <Route path="/game/duel" element={<MultiPlayerDuel />} />
         </Route>
+        <Route path="/scoreboard" element={<Scoreboard />} />
         <Route element={<AdminRoute />} >
           <Route path="/admin/*" element={<AdminIndex />} />
         </Route>

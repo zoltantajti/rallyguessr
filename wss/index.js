@@ -34,7 +34,7 @@ server.on('connection', (socket) => {
             const enemySocket = clients[data.enemyID];
             if(enemySocket){
                 enemySocket.send(JSON.stringify({ type: 'onEnemySelected', enemy: data.userID}));
-                socket.send(JSON.stringify({ type: 'onEnemySelected', enemy: data.enemyID}));
+                socket.send(JSON.stringify({ type: 'onEnemyFound', enemy: data.enemyID}));
             }else{
                 console.log(data.enemyID + " nem található!");
             };            

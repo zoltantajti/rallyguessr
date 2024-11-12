@@ -12,7 +12,7 @@ import MyStorage from '../../Utils/MyStorage';
 import { useNavigate } from 'react-router-dom';
 import { WSISend } from '../../WebSocket/WSService';
 import { UserModel } from '../../Datas/Models/UserModel';
-import { removeFromQueue } from './_matchmaking';
+import { removeFromMatchmaker, removeFromQueue } from './_matchmaking';
 
 const PrepareMultiPlayer = () => {
     const { t, i18next } = useTranslation();
@@ -23,19 +23,6 @@ const PrepareMultiPlayer = () => {
 
     const SelectCategory = (target) => {
         navigate("/game/matchmaking", {state: {topic: target}});
-        
-        
-        
-        /*trackPromise(
-            GenerateRandomCoord(target)
-            .then((data) => {
-                MyStorage.local.put('overallPoint', 0);
-                navigate("/game/matchmaking");
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-        )*/
     }
 
     const __clearState = () => {
@@ -58,8 +45,8 @@ const PrepareMultiPlayer = () => {
     useEffect(() => { 
         getTracks(); 
         const user = UserModel.load();
-        WSISend(JSON.stringify({type: 'onDisconnect', userID: user.__get('uid')}));
-        removeFromQueue(user);
+        //WSISend(JSON.stringify({type: 'onDisconnect', userID: user.__get('uid')}));
+        removeFromMatchmaker(user);
     },[]);
 
     return (
