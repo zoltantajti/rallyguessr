@@ -32,7 +32,7 @@ export const UserModel = (function () {
         static load(){
             const data = JSON.parse(MyStorage.session.get("user"));
             if(data !== null) return new UserModel(data.uid, data.username, data.email, data.avatar, data.country, data.credits, data.exp, data.level, data.perm);
-            return null;
+            return false;
         }
         dispose(){
             MyStorage.session.remove("user");

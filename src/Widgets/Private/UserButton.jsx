@@ -10,7 +10,6 @@ const UserButton = ({ user }) => {
     
     useEffect(() => {
         if(!user){ user = UserModel.load(); };
-
         setState({
             avatar: user.__get('avatar'),
             username: user.__get('username'),

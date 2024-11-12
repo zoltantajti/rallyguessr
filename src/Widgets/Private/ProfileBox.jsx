@@ -22,6 +22,8 @@ const ProfileBox = () => {
     }
     useEffect(() => {const windowClickHandler = (e) => {if(personalMenu && !e.target.closest('.profileBox')){setPersonalMenu(false);}};window.addEventListener('click', windowClickHandler);return () => { window.removeEventListener('click', windowClickHandler); };},[personalMenu]);
 
+
+    if(typeof user !== "class") return null;
     return (
         <div className="profileBox">
             <Button variant="light" onClick={openPersonalMenu}>

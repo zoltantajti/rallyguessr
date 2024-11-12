@@ -6,12 +6,40 @@ import ProfileBox from '../../Widgets/Private/ProfileBox';
 import { Button, Col, Container, Form, InputGroup, Overlay, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { getFantasyName, getLevelMax, getLevelMaxInMySkill, getLevelMin, getLevelName } from '../../Datas/Levels';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../Utils/Firebase';
 import FaIcon from '../../Widgets/Global/FaIcon';
+import { useParams } from 'react-router-dom';
+import { trackPromise } from 'react-promise-tracker';
 
-const Profile = () => {
-    const user = UserModel.load();
+const ProfileExternal = () => {
+    const { uid } = useParams();
+    
+    const [finish, setFinish] = useState(false);
+    const [user, setUser] = useState([]);
+    const [level, setLevel] = useState([]);
+
+    const fetchUserById = () => {
+        return new Promise(async (resolve) => {
+            const userDocRef = doc(db, `users/${uid}`);
+            const userDoc = await getDoc(userDocRef);
+            setUser((prev) => ({ ...prev, ...userDoc.data() }));
+            setLevel({
+                fantasyName: getFantasyName(userDoc.data().level),
+                levelName: getLevelName(userDoc.data().level),
+                min: getLevelMin(userDoc.data().level),
+                max: getLevelMax(userDoc.data().level)
+            });        
+            fetchSPResults();
+            fetchAndRankUsers();
+            setFinish(true);
+            resolve("OK");
+        });
+    };
+    useEffect(() => {
+        trackPromise( fetchUserById() );
+    },[]);
+
     const { t, i18next } = useTranslation();
     //Played matches and scores
     const [sp_orb, setSPOrb] = useState({ games: 0, avgScore: 0, maxScore: 0 });
@@ -24,7 +52,7 @@ const Profile = () => {
     const [wrcRaking, setWRCRaking] = useState(null);
 
     const fetchSPResults = async () => {
-        const sp_orb_query = query(collection(db, "results"), where("uid", "==", user.__get('uid')), where("gamemode", "==", "singleplayer"), where("topic", "==", "ORB"));
+        const sp_orb_query = query(collection(db, "results"), where("uid", "==", uid), where("gamemode", "==", "singleplayer"), where("topic", "==", "ORB"));
         const sp_orb_snapshot = await getDocs(sp_orb_query);
         const fetched_orb_results = sp_orb_snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         if (fetched_orb_results.length > 0) {
@@ -38,7 +66,7 @@ const Profile = () => {
             });
         };
 
-        const sp_erc_query = query(collection(db, "results"), where("uid", "==", user.__get('uid')), where("gamemode", "==", "singleplayer"), where("topic", "==", "ERC"));
+        const sp_erc_query = query(collection(db, "results"), where("uid", "==", uid), where("gamemode", "==", "singleplayer"), where("topic", "==", "ERC"));
         const sp_erc_snapshot = await getDocs(sp_erc_query);
         const fetched_erc_results = sp_erc_snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         if (fetched_erc_results.length > 0) {
@@ -52,7 +80,7 @@ const Profile = () => {
             });
         };
 
-        const sp_wrc_query = query(collection(db, "results"), where("uid", "==", user.__get('uid')), where("gamemode", "==", "singleplayer"), where("topic", "==", "ERC"));
+        const sp_wrc_query = query(collection(db, "results"), where("uid", "==", uid), where("gamemode", "==", "singleplayer"), where("topic", "==", "ERC"));
         const sp_wrc_snapshot = await getDocs(sp_wrc_query);
         const fetched_wrc_results = sp_wrc_snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         if (fetched_wrc_results.length > 0) {
@@ -68,104 +96,53 @@ const Profile = () => {
         const orbSnapshot = await getDocs(orbQuery);
         const orbUsers = orbSnapshot.docs.map(doc => ({ id: doc.id, userID: doc.data().uid, point: doc.data().point }));
         const sortedOrbUsers = orbUsers.sort((a, b) => b.point - a.point);
-        const orbRank = sortedOrbUsers.findIndex(_user => _user.userID === user.__get('uid')) + 1;
+        const orbRank = sortedOrbUsers.findIndex(_user => _user.userID === uid) + 1;
         setORBRaking((orbRank === 0) ? "--" : orbRank);
         /*ERC & Singleplayer Ranks*/
         const ercQuery = query(collection(db, "results"), where("gamemode", "==", "singleplayer"), where("topic", "==", "ERC"));
         const ercSnapshot = await getDocs(ercQuery);
         const ercUsers = ercSnapshot.docs.map(doc => ({ id: doc.id, userID: doc.data().uid, point: doc.data().point }));
         const sortedErcUsers = ercUsers.sort((a, b) => b.point - a.point);
-        const ercRank = sortedErcUsers.findIndex(_user => _user.userID === user.__get('uid')) + 1;
+        const ercRank = sortedErcUsers.findIndex(_user => _user.userID === uid) + 1;
         setERCRaking((ercRank === 0) ? "--" : ercRank);
         /*ERC & Singleplayer Ranks*/
         const wrcQuery = query(collection(db, "results"), where("gamemode", "==", "singleplayer"), where("topic", "==", "WRC"));
         const wrcSnapshot = await getDocs(wrcQuery);
         const wrcUsers = wrcSnapshot.docs.map(doc => ({ id: doc.id, userID: doc.data().uid, point: doc.data().point }));
         const sortedWrcUsers = wrcUsers.sort((a, b) => b.point - a.point);
-        const wrcRank = sortedWrcUsers.findIndex(_user => _user.userID === user.__get('uid')) + 1;
+        const wrcRank = sortedWrcUsers.findIndex(_user => _user.userID === uid) + 1;
         setWRCRaking((wrcRank === 0) ? "--" : wrcRank);
     }
 
-    const profileLinkRef = useRef(null);
-    const [copiedShow, setcopiedShow] = useState(false);
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(`${window.location.host}/profile/${user.__get('uid')}`);
-        setcopiedShow(true);
-        setTimeout(() => {setcopiedShow(false)}, 3000);
-    }
-
-    useEffect(() => {
-        fetchSPResults();
-        fetchAndRankUsers();
-    }, []);
-
-    return (
+    return ((finish) && (
         <div className="h-100 d-flex justify-content-center align-items-center">
             <div className="loginLayout"><SwitchLang onlyBrandImage={true} /></div>
             <div className="app">
-                <ProfileBox user={user} />
                 <Container style={{ marginTop: '20px' }}>
                     <Row>
                         <Col md={4}>
-                            <img src={user.__get('avatar')} style={{ width: "100%" }} alt="ProfileAvatar" />
+                            <img src={user.avatar} style={{ width: "100%" }} alt="ProfileAvatar" />
                         </Col>
                         <Col md={8} className="profile-user-box">
                             <div className="sectionTitle-frame mb-3">
-                                <span className="sectionTitle oswald-700">{t(getFantasyName(user.__get('level')))}</span>
+                                <span className="sectionTitle oswald-700">{t(level?.fantasyName)}</span>
                             </div>
                             <div className="userName">
-                                {user.__get('username')}
-                                {(user.__get('country') !== "N/A") && (<img style={{ position: 'relative', top: '-1px', left: '5px' }} src={`https://flagsapi.com/${user.__get('country')}/shiny/24.png`} alt="flag" />)}
+                                {user.username}
+                                {(user.country !== "N/A") && (<img style={{ position: 'relative', top: '-1px', left: '5px' }} src={`https://flagsapi.com/${user.country}/shiny/24.png`} alt="flag" />)}
                                 <div className="displayLevel">
-                                    <span className="levelName">{getLevelName(user.__get('level'))}</span>
-                                    <progress style={{ color: "#000" }} className="levelProgress" min={getLevelMin(user.__get('level'))} max={getLevelMax(user.__get('level'))} value={user.__get('exp')} />
-                                    <span className="levelName" style={{ position: 'relative', left: '15px' }}> {user.__get('exp')} / {getLevelMaxInMySkill(user.__get('exp'))}</span>
+                                    <span className="levelName">{level?.name}</span>
+                                    <progress style={{ color: "#000" }} className="levelProgress" min={level.min} max={level.max} value={user.exp} />
+                                    <span className="levelName" style={{ position: 'relative', left: '15px' }}> {user.exp} / {level.max}</span>
                                 </div>
-                            </div>
-                            <div className="userName">
-                                <InputGroup style={{ paddingTop: '10px' }}>
-                                    <InputGroup.Text id="basic-addon1"><FaIcon type="solid" icon="link" /></InputGroup.Text>
-                                    <Form.Control ref={profileLinkRef} type="text" readonly value={`${window.location.host}/profile/${user.__get('uid')}`} />
-                                    <Button onClick={copyToClipboard} variant='light'><FaIcon type="solid" icon="copy" /></Button>
-                                </InputGroup>
-                                <Overlay target={profileLinkRef.current} show={copiedShow} placement="auto-end">
-                                    {({
-                                        placement: _placement,
-                                        arrowProps: _arrowProps,
-                                        show: _show,
-                                        popper: _popper,
-                                        hasDoneInitialMeasure: _hasDoneInitialMeasure,
-                                        ...props
-                                    }) => (
-                                        <div
-                                            {...props}
-                                            style={{
-                                                position: 'absolute',
-                                                backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                                                padding: '5px 10px',
-                                                color: 'rgba(1,122,33,1)',
-                                                borderTopLeftRadius: 0,
-                                                borderTopRightRadius: 0,
-                                                borderBottomLeftRadius: 5,
-                                                borderBottomRightRadius: 5,
-                                                zIndex: 99,
-                                                ...props.style,
-                                            }}
-                                        >
-                                            {t('copiedToClipboard')}
-                                        </div>
-                                    )}
-                                </Overlay>
                             </div>
                         </Col>
                     </Row>
-                    {/*Statisztikák*/}
                     <div className="sectionTitle-frame mb-3" style={{ marginTop: "15px", marginBottom: "15px" }}>
                         <span className="sectionTitle oswald-700">{t('statisticTitle')}: {t('stat_singleplayer')}</span>
                         <div className="sectionBars"></div>
                     </div>
                     <Row>
-                        {/*Singleplayer: WRC Stat*/}
                         <Col md={3} className="mb-3">
                             <div className="statisticBoard text-center" style={{ position: 'relative' }}>
                                 <span className="sectionTitle oswald-700">{t('stat_playedGame')}</span><br />
@@ -181,7 +158,6 @@ const Profile = () => {
                                 </div>
                             </div>
                         </Col>
-                        {/*Singleplayer: ERC Stat*/}
                         <Col md={3} className="mb-3">
                             <div className="statisticBoard text-center" style={{ position: 'relative' }}>
                                 <span className="sectionTitle oswald-700">{t('stat_playedGame')}</span><br />
@@ -197,7 +173,6 @@ const Profile = () => {
                                 </div>
                             </div>
                         </Col>
-                        {/*Singleplayer: ORB Stat*/}
                         <Col md={3} className="mb-3">
                             <div className="statisticBoard text-center" style={{ position: 'relative' }}>
                                 <span className="sectionTitle oswald-700">{t('stat_playedGame')}</span><br />
@@ -237,7 +212,6 @@ const Profile = () => {
                             </div>
                         </Col>
                     </Row>
-                    {/*Trófeák*/}
                     <div className="sectionTitle-frame mb-3" style={{ marginTop: "15px", marginBottom: "15px" }}>
                         <span className="sectionTitle oswald-700">{t('trophyTitle')}</span>
                         <div className="sectionBars"></div>
@@ -252,7 +226,7 @@ const Profile = () => {
                 </Container>
             </div>
         </div>
-    );
+    ));
 };
 
-export default Profile;
+export default ProfileExternal;

@@ -14,12 +14,14 @@ import AdminIndex from "./Pages/Admin/AdminIndex";
 import PrepareSinglePlayer from "./Pages/SinglePlayer/PrepareSinglePlayer";
 import SinglePlayerGame from "./Pages/SinglePlayer/SinglePlayerGame";
 import Scoreboard from "./Pages/Private/Scoreboard";
+import ProfileExternal from "./Pages/Private/ProfileExternal";
 
 function App() {
   return (
     <Routes>
+      <Route path="/profile/:uid" element={<ProfileExternal />} />
       <Route element={<PublicRoute />} >
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={<Index />} />        
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/login" element={<Login />} />
@@ -29,6 +31,7 @@ function App() {
       <Route element={<PrivateRoute />} >
         <Route path="/start" element={<Start />} />
         <Route path="/profile" element={<Profile />} />
+        
         <Route path="/account" element={<Account />} />
         <Route path="/prepare_singleplayer" element={<PrepareSinglePlayer />} />
         <Route path="/game/singleplayer" element={<SinglePlayerGame />} />
