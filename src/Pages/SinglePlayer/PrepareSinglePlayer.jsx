@@ -31,7 +31,14 @@ const PrepareSinglePlayer = () => {
         )
     }
 
+    const __clearState = () => {
+        setWRCTracks(0);
+        setERCTracks(0);
+        setORBTracks(0);
+    }
+
     const getTracks = async () => {
+        __clearState();
         const q = query(collection(db,"tracks"), where("activeTrack","==",true));
         const snapshot = await getDocs(q);
         snapshot.forEach((doc) => {
@@ -50,33 +57,30 @@ const PrepareSinglePlayer = () => {
                 <ProfileBox />
                 <Container style={{marginTop: "55px"}}>
                     <Row>
-                        <Col md={4}>
+                        <Col md={{span: 4}}>
                             <Card className="pregameCard">
-                                <Card.Img variant="top" src="images/fiaWRCLogo.png" />
+                                <Card.Img variant="top" src="images/fiaWRCLogo.png" className={`track-selector ${(WRCTracks === 0) ? 'inactive' : ''}`}/>
                                 <Card.Text>
-                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{WRCTracks}</span>
                                     {t('wrcTitle')}<br/> {t('wrcCaption')}
-                                    <Button disabled={(WRCTracks === 0)? 'disabled' : ''} onClick={() => { SelectCategory("WRC"); }} variant="light" className="d-block w-100 stretched-link">{t('btn_start')}</Button>
+                                    <Button disabled={(WRCTracks === 0)? 'disabled' : ''} onClick={() => { SelectCategory("WRC"); }} variant="light" className={`d-block w-100 stretched-link track-selector ${(WRCTracks === 0) ? 'inactive' : ''}`}>{t('btn_start')}</Button>
                                 </Card.Text>
                             </Card>
                         </Col>
                         <Col md={4}>
                             <Card className="pregameCard">
-                                <Card.Img variant="top" src="images/fiaERCLogo.png" />
+                                <Card.Img variant="top" src="images/fiaERCLogo.png" className={`track-selector ${(ERCTracks === 0) ? 'inactive' : ''}`}/>
                                 <Card.Text>
-                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{ERCTracks}</span>
                                     {t('ercTitle')}<br/> {t('ercCaption')}
-                                    <Button disabled={(ERCTracks === 0)? 'disabled' : ''} onClick={() => { SelectCategory("ERC"); }} variant="light" className="d-block w-100 stretched-link">{t('btn_start')}</Button>
+                                    <Button disabled={(ERCTracks === 0)? 'disabled' : ''} onClick={() => { SelectCategory("ERC"); }} variant="light" className={`d-block w-100 stretched-link track-selector ${(ERCTracks === 0) ? 'inactive' : ''}`}>{t('btn_start')}</Button>
                                 </Card.Text>
                             </Card>
                         </Col>
                         <Col md={4}>
                             <Card className="pregameCard">
-                                <Card.Img variant="top" src="images/HUMDAORBLogo.png" />
+                                <Card.Img variant="top" src="images/HUMDAORBLogo.png" className={`track-selector ${(ORBTracks === 0) ? 'inactive' : ''}`}/>
                                 <Card.Text>
-                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{ORBTracks}</span>
                                     {t('orbTitle')}<br/> {t('orbCaption')}
-                                    <Button disabled={(ORBTracks === 0)? 'disabled' : ''} onClick={() => { SelectCategory("ORB"); }} variant="light" className="d-block w-100 stretched-link">{t('btn_start')}</Button>
+                                    <Button disabled={(ORBTracks === 0)? 'disabled' : ''} onClick={() => { SelectCategory("ORB"); }} variant="light" className={`d-block w-100 stretched-link track-selector ${(ORBTracks === 0) ? 'inactive' : ''}`}>{t('btn_start')}</Button>
                                 </Card.Text>
                             </Card>
                         </Col>

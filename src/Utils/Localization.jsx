@@ -19,3 +19,7 @@ const __flags = {
 const getFlagByCode = (code) => {
     return __flags[code];
 }
+
+export const formatNumber = (number, locale = 'hu-HU') => {
+    return number.toLocaleString(locale).replace('/\./g', ' ');
+}

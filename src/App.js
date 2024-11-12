@@ -13,6 +13,7 @@ import Account from "./Pages/Private/Account";
 import AdminIndex from "./Pages/Admin/AdminIndex";
 import PrepareSinglePlayer from "./Pages/SinglePlayer/PrepareSinglePlayer";
 import SinglePlayerGame from "./Pages/SinglePlayer/SinglePlayerGame";
+import Scoreboard from "./Pages/Private/Scoreboard";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
         <Route path="/account" element={<Account />} />
         <Route path="/prepare_singleplayer" element={<PrepareSinglePlayer />} />
         <Route path="/game/singleplayer" element={<SinglePlayerGame />} />
-
+        <Route path="/scoreboard" element={<Scoreboard />} />
         
         <Route element={<AdminRoute />} >
           <Route path="/admin/*" element={<AdminIndex />} />

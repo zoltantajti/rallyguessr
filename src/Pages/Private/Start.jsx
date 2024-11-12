@@ -21,7 +21,7 @@ const Start = () => {
                         <ListGroupItem as={Link} to="/prepare_singleplayer">{t('mode_singleplayer')}</ListGroupItem>
                         <ListGroupItem as={Link} disabled className="disabled" to="/prepare_game">{t('mode_multiplayer')}</ListGroupItem>
                         <ListGroupItem style={{borderBottom:'1px solid transparent'}} as={Link} disabled className="disabled" to="/prepare_game">{t('mode_champion')}</ListGroupItem>
-                        {/*<ListGroupItem as={Link} to="/scoreboard">{t('scoreboard')}</ListGroupItem>*/}
+                        <ListGroupItem as={Link} to="/scoreboard">{t('scoreboard')}</ListGroupItem>
                     </ListGroup>
                 </div>
                 <ProfileBox />

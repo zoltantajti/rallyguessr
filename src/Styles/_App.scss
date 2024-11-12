@@ -445,7 +445,11 @@ progress::-webkit-progress-value{
   box-shadow: 0 .25rem 2.75rem rgba(32, 17, 46, .2), 0 1.125rem 2.25rem -1.125rem rgba(0, 0, 0, .24), 0 1.875rem 3.75rem -.625rem rgba(0, 0, 0, .16);
   padding: 1.5rem;
 }
-
+.track-selector{
+  &.inactive{
+    filter: grayscale(1);
+  }
+}
 
 
 @import './overrides.scss';

@@ -12,7 +12,6 @@ const levels = [
 ]
 
 export const getLevelName = (level) => {
-    console.log(level);
     return levels.filter((l) => l.name === `LVL${level}`)[0].name
 }
 export const getLevelMin = (level) => {

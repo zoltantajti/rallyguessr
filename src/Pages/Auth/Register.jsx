@@ -38,6 +38,7 @@ const Register = () => {
                 await sendEmailVerification(userCredential.user);
                 const docRef = await doc(db, "users", userCredential.user.uid);
                 await setDoc(docRef, {
+                    username: userCredential.user.displayName,
                     avatar: '/images/noavatar.png',
                     perm: 1,
                     level: 1,

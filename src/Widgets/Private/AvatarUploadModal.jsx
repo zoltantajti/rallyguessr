@@ -1,13 +1,19 @@
 import React, { useRef, useState } from 'react';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import { checkImageIsAllowed } from '../../Utils/Utils';
+import axios from 'axios';
+import { imageToB64 } from '../../Utils/ImageHandler';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../Utils/Firebase';
+import { UserModel } from '../../Datas/Models/UserModel';
 
 
 const AvatarUploadModal = ({ show, handleClose}) => {
-    //const user = MyStorage.local.get('user');
+    const user = UserModel.load();
     const avatarRef = useRef();
     const [preview, setPreview] = useState(null);
     const [file, setFile] = useState(null);
+    const [b64, setB64] = useState('');
     const [error, setError] = useState(false);
 
     const handleFieldClick = () => {
@@ -21,10 +27,10 @@ const AvatarUploadModal = ({ show, handleClose}) => {
         const file = event.target.files[0];
         if(file && checkImageIsAllowed(file)) {
             setFile(file);
-            console.log(file);
             const reader = new FileReader();
             reader.onloadend = () => { 
                 setPreview(reader.result); 
+                setB64(reader.result);
             };
             reader.readAsDataURL(file);
         }else{
@@ -34,15 +40,16 @@ const AvatarUploadModal = ({ show, handleClose}) => {
 
     const onSubmitEvent = async (event) => {
         event.preventDefault();
-       
-        /*const formData = new FormData();
-        formData.append("file", file);
-        formData.append("id", user.id);
-        await client.post('/uploadAvatar', formData, (data) => {
-            user['avatar'] = data.file;
-            MyStorage.local.put('user', user);
+        console.log("Filename: ", file);
+        console.log("b64: ", b64);
+        
+        const userRef = doc(db,"users",user.__get('uid'));
+        updateDoc(userRef, {avatar: b64}).then((data) =>
+        {
+            user.__set('avatar', b64);
+            user.save();
             handleClose();
-        },MyStorage.local.get('token'));*/
+        })
     }
     
     return (

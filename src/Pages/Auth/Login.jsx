@@ -76,6 +76,7 @@ const Login = () => {
                 let docSnap = await getDoc(docRef);
                 if(!docSnap.exists){
                     await setDoc(docRef, {
+                        username: user.displayName,
                         avatar: '/images/noavatar.png',
                         perm: 1,
                         level: 1,

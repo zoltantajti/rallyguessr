@@ -8,7 +8,7 @@ import "../../i18n";
 import { useTranslation } from 'react-i18next';
 import { UserModel } from '../../Datas/Models/UserModel';
 import { auth, db } from '../../Utils/Firebase';
-import { updateProfile } from 'firebase/auth';
+import { updatePassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
 
 const Account = () => {
@@ -48,8 +48,8 @@ const Account = () => {
     const [uploadModal, setUploadModal] = useState(false);
     const uploadModalHandleClose = () => {
         setUploadModal(false);
-        //const _u = MyStorage.local.get('user');
-        //fillStateFromUser(_u);
+        const _u = UserModel.load();
+        fillStateFromUser(_u);        
     };
     /*Nickname and Country handler*/
     const [nickToggler, setNickToggler] = useState(false);
@@ -58,7 +58,10 @@ const Account = () => {
         event.preventDefault();
         await updateProfile(auth.currentUser, { displayName: state.fields.username});
         const docRef = doc(db, "users", auth.currentUser.uid);
-        await updateDoc(docRef, { country: state.fields.country });
+        await updateDoc(docRef, { 
+            country: state.fields.country,
+            username: state.fields.username        
+        });
         user.__set('username', state.fields.username);
         user.__set('country', state.fields.country);
         fillStateFromUser();
@@ -70,7 +73,15 @@ const Account = () => {
     const handlePasswordToggler = () => { setPasswordToggler(!passwordToggler); };
     const passwordSubmitHandler = (event) => {
         event.preventDefault();
-        
+        updatePassword(auth.currentUser, state.fields.new_password).then(() => {
+            setState(prev => ({
+                ...prev.fields,
+                old_password: '',
+                new_password: '',
+                new_password_rep: ''
+            }));
+            handlePasswordToggler();
+        });
     };
 
     return (
@@ -139,7 +150,7 @@ const Account = () => {
                     </Row>
 
                     {/*Jelszómódosítás*/}
-                    {/*<Row>
+                    <Row>
                         <Col className="text-left">
                             <div className="sectionTitle-frame mb-3">
                                 <span className="sectionTitle oswald-700">{t('profile_password')}</span>
@@ -188,7 +199,7 @@ const Account = () => {
                                 </Form>
                             )}
                         </Col>
-                    </Row>*/}
+                    </Row>
                 </Container>
             </div>
             {/*Widgetek*/}
