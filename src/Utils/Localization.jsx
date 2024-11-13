@@ -23,3 +23,11 @@ const getFlagByCode = (code) => {
 export const formatNumber = (number, locale = 'hu-HU') => {
     return number.toLocaleString(locale).replace('/\./g', ' ');
 }
+
+export const formatPlayTime = (_sec) => {
+    const minutes = Math.floor(_sec / 60);
+    const seconds = _sec % 60;
+    const formattedMinutes = String(minutes);
+    const formattedSecods = String(seconds).padStart(2, '0');
+    return `${formattedMinutes}:${formattedSecods}`;
+}

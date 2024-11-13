@@ -47,19 +47,23 @@ export const findMatch = (player) => {
                 if (data.status === "matched") {
                     unsubscribe();
                     resolve(data);
-                }
-            }
+                };
+            };
         });
     });
 }
 export const createLobby = async (topic, player1, player2) => {
     const lobbyRef = collection(db, "lobbies");
     const randomCoords = await GenerateRandomCoord(topic);
-    console.log(randomCoords);
     const lobbyDoc = await addDoc(lobbyRef, {
         player1: player1,
         player2: player2,
+        player1HP: 10000,
+        player2HP: 10000,
+        player1Tip: "",
+        player2Tip: "",
         status: "pending",
+        topic: topic,
         coord: JSON.stringify(randomCoords)
     });
 
@@ -89,4 +93,12 @@ export const fetchLobbyById = async (id) => {
     const lobbyRef = doc(db, `lobbies/${id}`);
     const snapshot = await getDoc(lobbyRef);
     return snapshot.data();
+}
+
+export const handleUserXP = async (uid, xpToChange) => {
+    const userRef = doc(db, `users/${uid}`);
+    const userData = (await getDoc(userRef)).data();
+    let _xp = parseInt(userData.exp) + parseInt(xpToChange);
+    if(_xp < 0){ _xp = 0; };
+    await updateDoc(userRef, { exp: _xp });
 }

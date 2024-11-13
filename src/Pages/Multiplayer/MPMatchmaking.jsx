@@ -20,6 +20,7 @@ const MPMatchmaking = () => {
     const [timer, setTimer] = useState(0);
     const [timeOut] = useState(999);
     const lobbyDataRef = useRef(null);
+    const lobbyIDRef = useRef(null);
     /*StartEffect*/
 
     useEffect(() => {
@@ -30,6 +31,7 @@ const MPMatchmaking = () => {
                 return findMatch(user);
             })
             .then(async (lobby) => {
+                lobbyIDRef.current = lobby;
                 lobbyDataRef.current = lobby;
                 return await getOppentData(lobby.lobbyID, user);
             })
@@ -44,8 +46,13 @@ const MPMatchmaking = () => {
                 });
                 setHaveEnemy(true);      
                 setTimeout(() => {
-                    navigate("/game/duel", {state: { lobby: lobbyDataRef.current }});
-                },3000);
+                    const gameState = {
+                        id: lobbyIDRef.current.lobbyID,
+                        topic: lobbyIDRef.current.topic,
+                        data: lobbyDataRef.current
+                    };
+                    navigate("/game/duel", {state: gameState });
+                },3000);       
             })
             .catch((err) => { console.error(err); });
 

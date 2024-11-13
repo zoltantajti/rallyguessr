@@ -32,7 +32,7 @@ const GameStreetView = ({ pos }) => {
     })
     
     return (
-        <div ref={streetViewRef} style={{width:'100vw',height:'100vh'}} />
+        <div ref={streetViewRef} style={{width:'100vw',height:'100vh', position:'absolute', top:'0px', left: '0px', zIndex: 4}} />
     );
 };
 

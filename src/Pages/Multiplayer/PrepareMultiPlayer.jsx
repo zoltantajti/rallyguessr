@@ -5,7 +5,7 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import "../../i18n";
 import { useTranslation } from 'react-i18next';
 import { trackPromise } from 'react-promise-tracker';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../Utils/Firebase';
 import { GenerateRandomCoord } from '../../Utils/GeoService';
 import MyStorage from '../../Utils/MyStorage';
@@ -42,10 +42,14 @@ const PrepareMultiPlayer = () => {
         });
     }
 
+    
+
     useEffect(() => { 
         getTracks(); 
         const user = UserModel.load();
-        //WSISend(JSON.stringify({type: 'onDisconnect', userID: user.__get('uid')}));
+
+
+
         removeFromMatchmaker(user);
     },[]);
 
