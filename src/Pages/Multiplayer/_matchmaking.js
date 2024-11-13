@@ -58,8 +58,8 @@ export const createLobby = async (topic, player1, player2) => {
     const lobbyDoc = await addDoc(lobbyRef, {
         player1: player1,
         player2: player2,
-        player1HP: 10000,
-        player2HP: 10000,
+        player1HP: 6000,
+        player2HP: 6000,
         player1Tip: "",
         player2Tip: "",
         status: "pending",
