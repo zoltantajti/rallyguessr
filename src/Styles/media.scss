@@ -1,0 +1,127 @@
+@media screen and (min-width: 500px) and (max-width: 900px){
+    a.navbar-brand{
+        max-width: 200px;
+        padding-left: 40px;
+    }
+    .topBar.navbar .container{
+        justify-content: left;
+    }
+    button.navbar-toggler .navbar-toggler-icon{
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+    }
+    .profileBox{
+        position:absolute;
+        top: -50px;
+        right: 40px;
+    }
+    .profileBox button {
+        &:hover{
+            transform: scale(1);
+        }
+    }    
+    .profileMenu.list-group{
+        max-width: 50%;
+    }    
+    .back-button{
+        position: absolute;
+        top:-57px;
+        left:0px;
+        width: 50px;
+        height: 50px;
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+    .app .container .row .col-md-4{
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    a.navbar-brand{
+        display: flex;
+        justify-content: center;
+    }
+    .profileBox{
+        width: 100vw;
+        position:absolute;
+        top: 0px;
+        right: 0px;
+        
+    }
+    .profileBox button.btn{
+        width: 100vw;
+        margin: 0;
+        &:hover{
+            transform: scale(1);
+        }
+    }
+    .profileBox > button.btn > div.row > div.col-3 > img{
+        position: relative;
+        left: 50px;
+    }
+    .text-mobile-center{ 
+        text-align: center !important;
+    }
+    .text-mobile-center > div{
+        justify-content: center;
+    }
+    .text-mobile-center > div > .lvl-text{
+        padding-right: 10px;
+    }
+    .profileMenu.list-group{
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .profileMenu.list-group .list-group-item{
+        width: 100%;
+        text-align: center;        
+    }
+    .back-button{
+        position:absolute;
+        top:-57px;
+        left:0px;
+        width: 50px;
+        height: 50px;
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+    .back-button i{
+        position:relative;
+        top: 6px;
+    }
+    .app .container{
+        margin-top: 90px !important;
+    }
+    .app .container .row .col-md-4{
+        margin-bottom: 15px;
+    }
+
+    .versus{
+        position:absolute;
+        top: 190px !important;
+        left: 0px !important;
+    }
+    .enemyBox{
+        margin-top: 40px;
+    }
+    .timeAlert{
+        position: absolute;
+        top: 0px;
+        right: 0px !important;
+        transform: translateX(0) !important;
+        border-bottom-right-radius: 0 !important;
+        width: auto !important;
+    }
+    #toggleMapButton{
+        position: absolute;
+        bottom: 10px !important;
+        left: 10px !important;
+        z-index: 99 !important;
+    }
+    .guessrMap{
+        max-width: 99vw !important;
+    }
+}

@@ -73,7 +73,7 @@ const MPMatchmaking = () => {
                 <ProfileBox />
                 <Container style={{marginTop: "55px"}}>
                     <Row style={{position:"relative"}}>
-                        <div className="oswald oswald-700 color-yellow size-100" style={{position:"absolute",top:"0",left:"0px",right:"0px",zIndex:9,textAlign:"center"}}>VS</div>
+                        <div className="oswald oswald-700 color-yellow size-100 versus" style={{position:"absolute",top:"0",left:"0px",right:"0px",zIndex:9,textAlign:"center"}}>VS</div>
                         <div className="oswald oswald-700 color-yellow size-30" style={{position:"absolute",bottom:"0",left:"0px",right:"0px",zIndex:9,textAlign:"center"}}>
                             {(!haveEnemy) && (
                                 <>
@@ -102,7 +102,7 @@ const MPMatchmaking = () => {
                                 </Card.Body>
                             </Card>                            
                         </Col>
-                        <Col md={6} className="text-center">
+                        <Col md={6} className="text-center enemyBox">
                             <Card className="statisticBoard">
                                 {(!haveEnemy) && (
                                     <Placeholder as={Card.Body} animation='glow'>

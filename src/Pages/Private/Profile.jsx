@@ -9,6 +9,7 @@ import { getFantasyName, getLevelMax, getLevelMaxInMySkill, getLevelMin, getLeve
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../Utils/Firebase';
 import FaIcon from '../../Widgets/Global/FaIcon';
+import BackButton from '../../Widgets/Global/BackButton';
 
 const Profile = () => {
     const user = UserModel.load();
@@ -103,6 +104,7 @@ const Profile = () => {
         <div className="h-100 d-flex justify-content-center align-items-center">
             <div className="loginLayout"><SwitchLang onlyBrandImage={true} /></div>
             <div className="app">
+                <BackButton />
                 <ProfileBox user={user} />
                 <Container style={{ marginTop: '20px' }}>
                     <Row>

@@ -14,3 +14,5 @@ i18next.use(I18NextHttpBackend)
     });
 
 export default i18next;
+
+export const availableLangs = ["hu","en"];

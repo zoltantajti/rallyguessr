@@ -19,8 +19,11 @@ import PrepareMultiPlayer from "./Pages/Multiplayer/PrepareMultiPlayer";
 import MPMatchmaking from "./Pages/Multiplayer/MPMatchmaking";
 import { WSProvider } from "./WebSocket/WSProvider";
 import MultiPlayerDuel from "./Pages/Multiplayer/MultiPlayerDuel";
+import { isMobile } from "react-device-detect";
+import MobileWarning from "./Widgets/MobileWarning";
 
 function App() {
+  /*if(isMobile){ return ( <MobileWarning /> ) };*/
   return (
     <Routes>
       <Route path="/terms" element={<Terms />} />

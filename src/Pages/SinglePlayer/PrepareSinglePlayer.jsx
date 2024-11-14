@@ -10,6 +10,7 @@ import { db } from '../../Utils/Firebase';
 import { GenerateRandomCoord } from '../../Utils/GeoService';
 import MyStorage from '../../Utils/MyStorage';
 import { useNavigate } from 'react-router-dom';
+import BackButton from '../../Widgets/Global/BackButton';
 
 const PrepareSinglePlayer = () => {
     const { t, i18next } = useTranslation();
@@ -54,6 +55,7 @@ const PrepareSinglePlayer = () => {
         <div className="h-100 d-flex justify-content-center align-items-center">
             <div className="loginLayout"><SwitchLang onlyBrandImage={true} /></div>
             <div className="app">
+                <BackButton />
                 <ProfileBox />
                 <Container style={{marginTop: "55px"}}>
                     <Row>

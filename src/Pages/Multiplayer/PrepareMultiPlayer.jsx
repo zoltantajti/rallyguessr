@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { WSISend } from '../../WebSocket/WSService';
 import { UserModel } from '../../Datas/Models/UserModel';
 import { removeFromMatchmaker, removeFromQueue } from './_matchmaking';
+import BackButton from '../../Widgets/Global/BackButton';
 
 const PrepareMultiPlayer = () => {
     const { t, i18next } = useTranslation();
@@ -57,6 +58,7 @@ const PrepareMultiPlayer = () => {
         <div className="h-100 d-flex justify-content-center align-items-center">
             <div className="loginLayout"><SwitchLang onlyBrandImage={true} /></div>
             <div className="app">
+                <BackButton />
                 <ProfileBox />
                 <Container style={{marginTop: "55px"}}>
                     <Row>

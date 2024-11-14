@@ -23,10 +23,10 @@ const UserButton = ({ user }) => {
     
     return (
         <Row>
-            <Col md={3} className="d-flex justify-content-center align-items-center">
+            <Col md={3} className="d-flex justify-content-center align-items-center col-3">
                 <img src={state?.avatar} style={{ width: "48px", height:"48px", borderRadius:"50%", objectFit:"cover" }} alt="Avatar" />
             </Col>
-            <Col md={9} className="text-left">
+            <Col md={9} className="text-left text-mobile-center col-9">
                 <b>{state?.username}</b><br />
                 <div style={{ display: 'flex' }}>
                     <span className="lvl-text">{state?.levelName}</span>

@@ -10,6 +10,7 @@ import { UserModel } from '../../Datas/Models/UserModel';
 import { auth, db } from '../../Utils/Firebase';
 import { updatePassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
+import BackButton from '../../Widgets/Global/BackButton';
 
 const Account = () => {
     const { t, i18n } = useTranslation();
@@ -88,6 +89,7 @@ const Account = () => {
         <div className="h-100 d-flex justify-content-center align-items-center">
             <div className="loginLayout"><SwitchLang onlyBrandImage={true} /></div>
             <div className="app">
+                <BackButton />
                 <ProfileBox user={user} />
                 <Container style={{ marginTop: '15px' }}>
                     <Row>

@@ -6,9 +6,7 @@ export const UserModel = (function () {
         constructor(uid,username,email,avatar,country,credits,exp,level,perm){
             privateData.set(
                 this, 
-                {uid,username,email,avatar,country,credits,exp,level,perm
-
-                }
+                {uid,username,email,avatar,country,credits,exp,level,perm}
             ); 
         }
         __get(key){ 

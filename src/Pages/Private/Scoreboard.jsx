@@ -12,6 +12,8 @@ import { getAuth } from 'firebase/auth';
 import "../../i18n";
 import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
+import { isMobile } from 'react-device-detect';
+import BackButton from '../../Widgets/Global/BackButton';
 
 const Scoreboard = () => {
     const { t } = useTranslation();
@@ -23,6 +25,7 @@ const Scoreboard = () => {
         <div className="h-100 d-flex justify-content-center align-items-center">
             <div className="loginLayout"><SwitchLang onlyBrandImage={true} /></div>
             <div className="app">
+                <BackButton />
                 <ProfileBox user={user} />
                 <Container style={{ marginTop: "35px" }}>
                     <Row>
@@ -49,12 +52,12 @@ export default Scoreboard;
 
 const ScoreBoardFrame = ({ topic }) => {
     const [board, setBoard] = useState([]);
-    
+
     const asyncEffect = async () => {
-        const q = query(collection(db,"results"), where("gamemode","==","singleplayer"), where("topic","==",topic));
+        const q = query(collection(db, "results"), where("gamemode", "==", "singleplayer"), where("topic", "==", topic));
         const snapshot = await getDocs(q);
         const aggregatedResults = {};
-        for(const d of snapshot.docs) {
+        for (const d of snapshot.docs) {
             const data = d.data();
             const { uid, point, imageCount } = data;
 
@@ -64,15 +67,15 @@ const ScoreBoardFrame = ({ topic }) => {
             const username = userDoc.data().username;
             const country = userDoc.data().country;
 
-            if(!aggregatedResults[uid]){ 
+            if (!aggregatedResults[uid]) {
                 aggregatedResults[uid] = {
-                    uid, 
+                    uid,
                     username,
                     avatar,
                     country,
-                    point: 0, 
+                    point: 0,
                     images: 0
-                }; 
+                };
             };
             aggregatedResults[uid].point += point || 0;
             aggregatedResults[uid].images += imageCount || 0;
@@ -83,7 +86,7 @@ const ScoreBoardFrame = ({ topic }) => {
     }
 
     useEffect(() => {
-       asyncEffect();
+        asyncEffect();
     }, []);
 
     return (
@@ -97,38 +100,41 @@ const ScoreBoardHeader = () => {
     return (
         <ListGroupItem className="scoreBoardItem">
             <Row>
-                <Col md={1} style={{ display: "flex", alignItems: 'center', textAlign: 'center' }}>&nbsp;</Col>
-                <Col md={1} style={{ display: "flex", alignItems: 'center', textAlign: 'center' }}>&nbsp;</Col>
-                <Col md={6}>&nbsp;</Col>
-                <Col md={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <b>{ t('sboard_imageCount') }</b>
+                <Col md={1} xs={1} style={{ display: "flex", alignItems: 'center', textAlign: 'center' }}>&nbsp;</Col>
+                <Col md={1} xs={1} style={{ display: "flex", alignItems: 'center', textAlign: 'center' }}>&nbsp;</Col>
+                <Col md={6} xs={6}>
+                    <b>{t('sboard_player')}</b>
                 </Col>
-                <Col md={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <b>{ t('sboard_pts') }</b>
+                <Col md={2} xs={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                    <b>{t('sboard_imageCount')}</b>
+                </Col>
+                <Col md={2} xs={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                    <b>{t('sboard_pts')}</b>
                 </Col>
             </Row>
         </ListGroupItem>
+
     )
 }
 const ScoreBoardItem = ({ row, count }) => {
     return (
         <ListGroupItem className='scoreBoardItem'>
             <Row>
-                <Col md={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                <Col md={1} xs={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
                     <b>{count}</b>
                 </Col>
-                <Col md={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                <Col md={1} xs={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
                     <img src={row.avatar} style={{ width: "32px", height: "32px", borderRadius: "16px", objectFit: 'cover' }} alt="Avatar" />
                 </Col>
-                <Col md={6}>
+                <Col md={6} xs={6}>
                     <b><i>{row.username}</i></b><br />
                     <img style={{ width: "16px", height: "16px", position: 'relative', top: '-1px', marginRight: '5px' }} src={`https://flagsapi.com/${row.country}/shiny/24.png`} alt="flag" />
                     <b>{getCountryByCode(row.country)}</b>
                 </Col>
-                <Col md={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                <Col md={2} xs={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
                     {row.images}
                 </Col>
-                <Col md={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                <Col md={2} xs={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
                     {formatNumber(row.point)}
                 </Col>
             </Row>
