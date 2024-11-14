@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Alert, Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';

@@ -1,20 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import "../../i18n";
 import { useTranslation } from 'react-i18next';
 import SwitchLang from '../../Widgets/Global/SwitchLang';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ProfileBox from '../../Widgets/Private/ProfileBox';
-import MyStorage from '../../Utils/MyStorage';
-import { UserModel } from '../../Datas/Models/UserModel';
 import DemoAlert from '../../Widgets/Private/DemoAlert';
+import FaIcon from '../../Widgets/Global/FaIcon';
 
 const Start = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     return (
         <div className="h-100 d-flex justify-content-center align-items-center">
-            <div className="loginLayout"><SwitchLang onlyBrandImage={true}/></div>
+            <div className="loginLayout animate"><SwitchLang onlyBrandImage={true}/></div>
             <div className="app">
                 <div className="menuBox">
                     <ListGroup className="menuBox-list">
@@ -26,6 +25,13 @@ const Start = () => {
                 </div>
                 <ProfileBox />
                 <DemoAlert />
+                <div style={{position:"absolute",bottom:"25px",left:"25px",zIndex:3}} aria-label='Social'>
+                    <Link to="/" style={{marginRight:"20px"}}><FaIcon type="brands" icon="facebook-f" size="2x" /></Link>
+                    <Link variant="off" onClick={() => alert("OK")}><FaIcon type="solid" icon="cogs" size="2x" /></Link>
+                </div>
+                <div style={{position:"absolute",bottom:"25px",right:"25px",zIndex:3}} aria-label='Terms'>
+                    <Link to="/privacy">Privacy</Link> | <Link to="/terms">Terms</Link>
+                </div>
             </div>            
         </div>
     );

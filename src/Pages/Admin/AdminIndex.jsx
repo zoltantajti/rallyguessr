@@ -1,6 +1,6 @@
 import "../../Styles/_Admin.scss";
 import 'leaflet/dist/leaflet.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AdminNavbar from "./Widgets/AdminNavbar";
 import AdminTracksAdd from "./Pages/AdminTracksAdd";

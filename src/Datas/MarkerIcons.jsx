@@ -1,4 +1,4 @@
-import { Icon, popup } from "leaflet";
+import { Icon } from "leaflet";
 
 const startIcon = new Icon({
     iconUrl: '../../images/markers/start.png',

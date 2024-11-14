@@ -23,12 +23,12 @@ import MultiPlayerDuel from "./Pages/Multiplayer/MultiPlayerDuel";
 function App() {
   return (
     <Routes>
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<Privacy />} />        
       <Route path="/profile/:uid" element={<ProfileExternal />} />
       <Route element={<PublicRoute />} >
-        <Route path="/" element={<Index />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Index />} />  
+        <Route path="/login" element={<Login />} />        
         <Route path="/register" element={<Register />} />
         <Route path="/activate" element={<Activate />} />
       </Route>

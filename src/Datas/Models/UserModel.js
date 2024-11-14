@@ -12,7 +12,6 @@ export const UserModel = (function () {
             ); 
         }
         __get(key){ 
-            //console.log(key, privateData.get(this)[key]);
             return privateData.get(this)[key]; 
         }
         __set(key, val){ 
