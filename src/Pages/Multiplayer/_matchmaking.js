@@ -3,6 +3,7 @@ import { db } from "../../Utils/Firebase";
 import { collection, addDoc, query, where, getDocs, setDoc, doc, deleteDoc, getDoc, onSnapshot, updateDoc, orderBy } from "firebase/firestore";
 import { GenerateRandomCoord } from "../../Utils/GeoService";
 
+
 export const addToMatchmaker = async (topic, player) => {
     const matchmakerRef = doc(db, `matchmaker/${player.__get('uid')}`);
     await setDoc(matchmakerRef, {
@@ -30,10 +31,10 @@ export const getOppentData = (lobbyID, my) => {
                 const oppentData = oppentDoc.data();
                 resolve(oppentData);
             }else{
-                reject("Oppent data not found!");
+                reject("mm_noOppentData");
             };
         }else{
-            reject("Lobby data not found");
+            reject("mm_noLobbyFound");
         };
     });
 }

@@ -9,8 +9,11 @@ import PlaceholderIndicator from '../../Widgets/Game/PlaceholderIndicator';
 import { addToMatchmaker, fetchLobbyById, findMatch, getOppentData, pairPlayers } from './_matchmaking';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../Utils/Firebase';
+import "../../i18n";
+import { useTranslation } from 'react-i18next';
 
 const MPMatchmaking = () => {
+    const { t, i18next } = useTranslation();
     const user = UserModel.load();
     const location = useLocation();
     const navigate = useNavigate();
@@ -27,7 +30,7 @@ const MPMatchmaking = () => {
         const topic = location.state.topic;       
         addToMatchmaker(topic, user)
             .then(() => {
-                console.log("Játékos csatlakozott a matchmakinghez...");
+                //console.log("Játékos csatlakozott a matchmakinghez...");
                 return findMatch(user);
             })
             .then(async (lobby) => {
@@ -74,13 +77,13 @@ const MPMatchmaking = () => {
                         <div className="oswald oswald-700 color-yellow size-30" style={{position:"absolute",bottom:"0",left:"0px",right:"0px",zIndex:9,textAlign:"center"}}>
                             {(!haveEnemy) && (
                                 <>
-                                    Ellenfél keresése...<br/>
+                                    {t('mm_searchEnemy')}...<br/>
                                     {timer}
                                 </>
                             )}
                             {(haveEnemy) && (
                                 <>
-                                    A meccs hamarosan indul...
+                                    {t('mm_startSoon')}...
                                 </>
                             )}
 
@@ -125,10 +128,10 @@ const MPMatchmaking = () => {
                 </Container>
                 <Modal className="resultModal" show={modal} aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Body className="text-center">
-                        Sajnáljuk, de <b>nem találtunk</b> bejelentkezett ellenfelet.<br/>
-                        Kérlek, próbáld újra később!
+                        {t('mm_noOppentFound_1')}<br/>
+                        {t('mm_noOppentFound_2')}
                         <hr/>
-                        <Button onClick={() => {  }} variant="outline-light">Vissza</Button>
+                        <Button onClick={() => {  }} variant="outline-light">{t('btn_back')}</Button>
                     </Modal.Body>
                 </Modal>
             </div>

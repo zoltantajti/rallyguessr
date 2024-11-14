@@ -6,9 +6,12 @@ import { imageToB64 } from '../../Utils/ImageHandler';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../Utils/Firebase';
 import { UserModel } from '../../Datas/Models/UserModel';
+import "../../i18n";
+import { useTranslation } from 'react-i18next';
 
 
 const AvatarUploadModal = ({ show, handleClose}) => {
+    const { t, i18next } = useTranslation();
     const user = UserModel.load();
     const avatarRef = useRef();
     const [preview, setPreview] = useState(null);
@@ -34,7 +37,7 @@ const AvatarUploadModal = ({ show, handleClose}) => {
             };
             reader.readAsDataURL(file);
         }else{
-            setError("A filetípus nem engedélyezett!");
+            setError(t('err_notAllowedFileType'));
         }
     }
 
@@ -55,7 +58,7 @@ const AvatarUploadModal = ({ show, handleClose}) => {
     return (
         <Modal className="custom-modal" show={show} onHide={handleClose}>
             <Modal.Body className="text-center">
-                <div className="modalTitle">Válassz új avatart!</div>
+                <div className="modalTitle">{t('prof_chooseAvatar')}!</div>
                 <Form onSubmit={onSubmitEvent}>
                     {(error) && (<span className="error2">{error}</span>)}
                     <div className="text-center upload-circle-base mb-5">
@@ -64,7 +67,7 @@ const AvatarUploadModal = ({ show, handleClose}) => {
                                 <img src={preview} alt="Preview" className="preview-image" />
                             ) : (
                                 <>
-                                    Képfeltöltés
+                                    {t('prof_uploadImage')}
                                 </>
                             )}
                             <Form.Control ref={avatarRef}  type="file" name="avatar" style={{display:'none'}} onChange={handleFileChange}/>
@@ -72,10 +75,10 @@ const AvatarUploadModal = ({ show, handleClose}) => {
                     </div>
                     <Row>
                         <Col md={6} className="text-center">
-                            <Button variant="off" type="submit" className="register-button">Mentés</Button>
+                            <Button variant="off" type="submit" className="register-button">{t('btn_save')}</Button>
                         </Col>
                         <Col md={6} className="text-center">
-                            <Button variant="off" onClick={handleClose} className="login-button">Mégse</Button>
+                            <Button variant="off" onClick={handleClose} className="login-button">{t('btn_cancel')}</Button>
                         </Col>
                     </Row>
                 </Form>

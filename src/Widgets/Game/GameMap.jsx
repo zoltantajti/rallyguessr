@@ -15,9 +15,12 @@ import { icons } from '../../Datas/MarkerIcons';
 import { UserModel } from '../../Datas/Models/UserModel';
 import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../Utils/Firebase';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 
 const GameMap = ({ pos, current, max, topic, gm }) => {
+    const { t, i18next } = useTranslation();
     const mapRef = useRef();
     const navigate = useNavigate();
     const [markedPos, setMarkedPos] = useState(false);
@@ -171,8 +174,7 @@ const GameMap = ({ pos, current, max, topic, gm }) => {
         user.__set('level', lvl);
         user.save();
 
-        navigate('/start');
-        //navigate('/scoreboard', { state: { topic: topic } });
+        navigate('/scoreboard', { state: { topic: topic } });
     }
 
     
@@ -186,7 +188,7 @@ const GameMap = ({ pos, current, max, topic, gm }) => {
         setLevelMax(getLevelMaxInMySkill(_xp));
         let percent = calcPercent(_xp, getLevelMaxInMySkill(_xp));
         
-        console.log("prevXP:", prevExp, "claimedXP:", claimExp, "currXP:", _xp, "Level:", level, "percent:", percent);
+        //console.log("prevXP:", prevExp, "claimedXP:", claimExp, "currXP:", _xp, "Level:", level, "percent:", percent);
         
         setXP(_xp);
         setPBValue(percent);
@@ -198,25 +200,25 @@ const GameMap = ({ pos, current, max, topic, gm }) => {
         <>
             <Button style={{ position: 'absolute', bottom: '200px', left: 'calc(200px - 42px)', borderRadius: 0, zIndex:6 }} onClick={toggleMap} variant="light" className="guessrButton" id="toggleMapButton"><FaIcon type="solid" icon="arrows-maximize" /></Button>
             {markedPos && !newImage && !finish && (
-                <Button style={{position:'absolute',bottom:'35px',left:'300px',zIndex:9,transform:'translateX(-50%)'}} variant="off" className="register-button" onClick={submitCoords} >Beküldés</Button>
+                <Button style={{position:'absolute',bottom:'35px',left:'300px',zIndex:9,transform:'translateX(-50%)'}} variant="off" className="register-button" onClick={submitCoords} >{t('duel_submitCoords')}</Button>
             )}
             {markedPos && newImage && !finish && (
-                <Button id="nextImage" style={{position:'absolute',bottom:'35px',left:'50%',right:'50%',transform:'translateX(-50%)',zIndex:9,width:'125px'}} variant="off" className="register-button" onClick={nextImage} >Következő</Button>
+                <Button id="nextImage" style={{position:'absolute',bottom:'35px',left:'50%',right:'50%',transform:'translateX(-50%)',zIndex:9,width:'125px'}} variant="off" className="register-button" onClick={nextImage} >{t('btn_next')}</Button>
             )}
             {(finish) && (
                 <Modal className="resultModal" show={finish} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Body className="text-center">
-                    <div className="text-center oswald oswald-700 size-24 color-yellow">A játék vége!</div>
-                    Összpontszám: <b className="color-yellow">{overallPoint} pont</b><br/>
+                    <div className="text-center oswald oswald-700 size-24 color-yellow">{t('sp_endOfThegame')}!</div>
+                    {t('sp_totalPoints')}: <b className="color-yellow">{overallPoint} {t('sboard_pts').toLowerCase()}</b><br/>
                     XP: <b className="color-yellow">{xp}</b><br/>
                     <ProgressBar now={pbValue} label={`${xp} / ${levelMax}`} style={{marginBottom:'50px',marginTop:'10px'}} variant="success"/>
-                    <Button id="finishButton" style={{position:'absolute',bottom:'12px',left:'50%',right:'50%',transform:'translateX(-50%)',zIndex:9,width:'75px'}} variant="off" className="register-button" onClick={finishEvent} >Vége</Button>
+                    <Button id="finishButton" style={{position:'absolute',bottom:'12px',left:'50%',right:'50%',transform:'translateX(-50%)',zIndex:9,width:'75px'}} variant="off" className="register-button" onClick={finishEvent} >{t('btn_finish')}</Button>
                 </Modal.Body>
             </Modal>
             )}
             <MapTime time={mapTime} style={{position:'absolute',top:'0px',right:'50%',left:'50%',transform:'translateX(-50%)',zIndex:7,width:"120px",borderTopLeftRadius:0,borderTopRightRadius:0}}/>
             <Badge bg="secondary" style={{position:'absolute',top:'0px',right:'0px',zIndex:7,borderTopLeftRadius:0,borderTopRightRadius:0,borderBottomRightRadius:0,paddingTop:'10px',paddingBottom:'10px',paddingLeft:'25px',paddingRight:'25px'}}>
-                <div className="oswald oswald-500 size-16">Kör</div>
+                <div className="oswald oswald-500 size-16">{t('sp_round')}</div>
                 <div className="oswald oswald-700 size-24">{current} / {max}</div>
             </Badge>
             <MapContainer

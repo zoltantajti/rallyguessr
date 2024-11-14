@@ -12,10 +12,13 @@ import { calculateDistance, formatDistance, GenerateRandomCoord } from '../../Ut
 import { getPointsByDistance } from '../../Utils/CalculatePoints';
 import CountDown from './CountDown';
 import GameStreetView from '../../Widgets/Game/GameStreetView';
+import "../../i18n";
+import { useTranslation } from 'react-i18next';
 
 /*ID; Topic; Data*/
 const MultiPlayerDuel = () => {
     /*Globals*/
+    const { t, i18next } = useTranslation();
     const user = UserModel.load();
     const mapRef = useRef(null);
     const playerRef = useRef(null);
@@ -140,7 +143,7 @@ const MultiPlayerDuel = () => {
     const [p2Dist, setP2Dist] = useState(0);
     const [p1PTS, setP1PTS] = useState(0);
     const [p2PTS, setP2PTS] = useState(0);
-    const [displayMode, setDisplayMode] = useState("Pont");
+    const [displayMode, setDisplayMode] = useState(t("duel_dmode_pts"));
     const scoreScreenInit = async () => {
         const p1Doc = doc(db, `users/${lobbyData.player1}`);
         const p1Snapshot = await getDoc(p1Doc);
@@ -169,7 +172,7 @@ const MultiPlayerDuel = () => {
                     if(p1Point < p2Point) { winner = p2Point; };
                     let p1pts = Math.abs(p1Point - Math.abs(winner));
                     let p2pts = Math.abs(p2Point - Math.abs(winner));
-                    setP1PTS(p1pts); setP2PTS(p2pts); setDisplayMode("Sebzés");
+                    setP1PTS(p1pts); setP2PTS(p2pts); setDisplayMode(t('duel_dmode_damage'));
                     setTimeout(() => {
                         let p1hp = lobbyData.player1HP - p1pts;
                         let p2hp = lobbyData.player2HP - p2pts;
@@ -230,10 +233,10 @@ const MultiPlayerDuel = () => {
             {/*CancelledModal*/}
             <Modal className="resultModal" show={cancelledModal} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Body className="text-center">
-                    Sajnáljuk, az ellenfeled feladta a mérkőzést és ezzel 10 XP-t veszített.<br />
-                    <span className="color-yellow">A 10 XP-t jóváírjuk neked!</span>
+                    {t('duel_enemyBack_1')}<br />
+                    <span className="color-yellow">{t('duel_enemyBack_2')}</span>
                     <hr />
-                    <Button onClick={abortMatch} variant="outline-light">Rendben</Button>
+                    <Button onClick={abortMatch} variant="outline-light">{t('btn_ok')}</Button>
                 </Modal.Body>
             </Modal>
             {/*ResultModal*/}

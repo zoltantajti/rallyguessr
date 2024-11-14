@@ -9,8 +9,12 @@ import { formatNumber } from '../../Utils/Localization';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../../Utils/Firebase';
 import { getAuth } from 'firebase/auth';
+import "../../i18n";
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 const Scoreboard = () => {
+    const { t } = useTranslation();
     const user = UserModel.load();
     const location = useLocation();
     const topic = location.state?.topic || "WRC";
@@ -97,10 +101,10 @@ const ScoreBoardHeader = () => {
                 <Col md={1} style={{ display: "flex", alignItems: 'center', textAlign: 'center' }}>&nbsp;</Col>
                 <Col md={6}>&nbsp;</Col>
                 <Col md={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <b>KÉPEK</b>
+                    <b>{ t('sboard_imageCount') }</b>
                 </Col>
                 <Col md={2} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <b>PONT</b>
+                    <b>{ t('sboard_pts') }</b>
                 </Col>
             </Row>
         </ListGroupItem>

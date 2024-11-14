@@ -1,4 +1,6 @@
 {
+    "DEMOALERT": "DEMÓ VERZIÓ",
+
     "email": "E-mail cím",
     "password": "Jelszó",
     "password_rep": "Jelszó megerősítése",
@@ -49,6 +51,7 @@
     "auth/email-already-in-use": "Az e-mail cím már használatban van!",
     "auth/invalid-action-code": "Az aktivációs kód nem létezik!",
     "auth/unverified": "A fiókod nincs hitelesítve",
+    "err_notAllowedFileType": "A filetípus nem engedélyezett",
 
     "mode_singleplayer": "Egyjátékos",
     "mode_multiplayer": "Többjátékos",
@@ -62,6 +65,10 @@
     "btn_save": "Mentés",
     "btn_admin": "Admin",
     "btn_start": "Kezdés",
+    "btn_back": "Vissza",
+    "btn_ok": "Rendben",
+    "btn_next": "Következő",
+    "btn_finish": "Vége",
 
     "wrcTitle": "FIA World Rally Championship",
     "wrcCaption": "FIA WRC pályák, Kenyától, Svédországig",
@@ -70,7 +77,37 @@
     "orbTitle": "HUMDA ORB Rally Bajnokság",
     "orbCaption": "A Magyar Rally Bajnokság pályái",
 
-    "fn_lvl1": "Totál kezdő",
+    "fn_lvl0": "Út Szélén Ácsorgó",
+    "fn_lvl1": "Rally Kezdő",
+    "fn_lvl2": "Poros Padlógázoló",
+    "fn_lvl3": "Kanyar Kutató",
+    "fn_lvl4": "Bátor Bukkanó Bajnok",
+    "fn_lvl5": "Sáros Sárgáspofa",
+    "fn_lvl6": "Homokhurrikán",
+    "fn_lvl7": "Drift Doktor",
+    "fn_lvl8": "Navigációs Nagymenő",
+    "fn_lvl9": "Pálya Professzor",
+    "fn_lvl10": "Legendás Rally Legend",
+
+    "mm_noOppentData": "Nem található ellenfél",
+    "mm_noLobbyFound": "Nem található nyitott játék",
+    "mm_searchEnemy": "Ellenfél keresése",
+    "mm_startSoon": "A meccs hamarosan indul",
+    "mm_noOppentFound_1": "Sajnáljuk, de nem találtunk megfelelő ellenfelet.",
+    "mm_noOppentFound_2": "Kérlek, próbáld újra később!",
+
+    "duel_enemyBack_1": "Sajnáljuk, az ellenfeled feladta a mérkőzést és ezzel 10 XP-t veszített!",
+    "duel_enemyBack_2": "A 10 XP-t jóváírjuk neked!",
+    "duel_dmode_pts": "Pont",
+    "duel_dmode_damage": "Sebzés",
+    "duel_submitCoords": "Beküldés",
+
+    "sboard_imageCount": "Képek",
+    "sboard_pts": "Pont",
+    
+    "sp_endOfThegame": "A játék vége",
+    "sp_totalPoints": "Összpontszám",
+    "sp_round": "Kör",
 
     "statisticTitle": "Statisztikák",
     "stat_playedGame": "Befejezett játékok",
@@ -81,6 +118,9 @@
     "stat_rank_wrc": "WRC",
     "stat_rank_erc": "ERC",
     "stat_rank_orb": "ORB",
+
+    "prof_chooseAvatar": "Válassz avatart",
+    "prof_uploadImage": "Képfeltöltés",
 
     "trophyTitle": "Trófeák",
     "noTrophy": "Nincs megjeleníthető trófeád",

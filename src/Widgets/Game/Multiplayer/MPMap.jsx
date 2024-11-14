@@ -6,8 +6,11 @@ import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-lea
 import FaIcon from '../../Global/FaIcon';
 import MPMapScores from './MPMapScores';
 import { icons } from '../../../Datas/MarkerIcons';
+import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 const MPMap = forwardRef(({ callback }, ref) => {
+    const { t, i18next } = useTranslation();
     const mapRef = useRef(null);
     useImperativeHandle(ref, () => ({
         OppentMap, clearMap
@@ -73,7 +76,7 @@ const MPMap = forwardRef(({ callback }, ref) => {
     return (
         <>
             <Button style={{ position: 'absolute', bottom: '200px', left: 'calc(200px - 42px)', borderRadius: 0, zIndex:6 }} onClick={toggleMap} variant="light" className="guessrButton" id="toggleMapButton"><FaIcon type="solid" icon="arrows-maximize" /></Button>
-            {(markedPos) && ( <Button style={{position:'absolute',bottom:'35px',left:'300px',zIndex:9,transform:'translateX(-50%)'}} variant="off" className="register-button" onClick={submitCoords} >Beküldés</Button> )}
+            {(markedPos) && ( <Button style={{position:'absolute',bottom:'35px',left:'300px',zIndex:9,transform:'translateX(-50%)'}} variant="off" className="register-button" onClick={submitCoords} >{t('duel_submitCoords')}</Button> )}
             <MapContainer
                 ref={mapRef}
                 center={[48.647458, 15.907382]}
