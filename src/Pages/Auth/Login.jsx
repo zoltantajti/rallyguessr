@@ -11,10 +11,11 @@ import FormErrorMessage from '../../Widgets/Global/FormErrorMessage';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { UserModel } from '../../Datas/Models/UserModel';
+import { SettingsModel } from '../../Datas/Models/SettingsModel';
 
 const Login = () => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [input, setInput] = useState({email: "",password: ""});
     const [errors, setErrors] = useState(false);
@@ -38,19 +39,12 @@ const Login = () => {
                     const docRef = doc(db, "users", user.uid);
                     let docSnap = await getDoc(docRef);
                     const data = docSnap.data();
-                    const userInstance = new UserModel(
-                        user.uid,
-                        user.displayName,
-                        user.email,
-                        data.avatar,
-                        data.country,
-                        data.credits,
-                        data.exp,
-                        data.level,
-                        data.perm
-                    );
+                    const userInstance = new UserModel(user.uid,user.displayName,user.email,data.avatar,data.country,data.credits,data.exp,data.level,data.perm);
                     userInstance.save();
-    
+                    const sm = JSON.parse(data.settings);
+                    const settingInstance = new SettingsModel(sm.lang, sm.volume, sm.sound, sm.fullscreen);
+                    settingInstance.save();
+                    
                     navigate("/start");
                 }else{
                     auth.signOut();
@@ -82,23 +76,17 @@ const Login = () => {
                         level: 1,
                         exp: 1,
                         credits: 0,
-                        country: "N/A"
+                        country: "N/A",
+                        settings: JSON.stringify({lang:i18n.language,volume:50,sound:true,fullscreen:false})
                     });
                     docSnap = await getDoc(docRef);
                 };
                 const data = docSnap.data();
-                const userInstance = new UserModel(
-                    user.uid,
-                    user.displayName,
-                    user.email,
-                    data.avatar,
-                    data.country,
-                    data.credits,
-                    data.exp,
-                    data.level,
-                    data.perm
-                );
+                const userInstance = new UserModel(user.uid,user.displayName,user.email,data.avatar,data.country,data.credits,data.exp,data.level,data.perm);
                 userInstance.save();
+                const sm = JSON.parse(data.settings);
+                const settingInstance = new SettingsModel(sm.lang, sm.volume, sm.sound, sm.fullscreen);
+                settingInstance.save();
                 navigate("/start");
             }
         }catch(err){

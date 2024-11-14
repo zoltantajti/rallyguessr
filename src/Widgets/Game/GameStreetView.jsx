@@ -21,7 +21,6 @@ const GameStreetView = ({ pos }) => {
                 initStreetView();
             }else{
                 const script = document.createElement("script");
-                /*script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyA2FwOGh1VmFEywtKIB6_hz4rMuOCJgkrk&v=weekly`*/
                 script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBxp4nRRK9uEp6lN8BToT9DQLPB7GD18oo`
                 script.async = true;
                 script.defer = true;
@@ -29,7 +28,7 @@ const GameStreetView = ({ pos }) => {
                 document.head.appendChild(script);
             }
         };
-        loadGoogleMapsScript();
+        //loadGoogleMapsScript();
     })
     
     return (

@@ -19,6 +19,12 @@ export const SettingsModel = (function () {
             privateData.get(this)[key] = val; 
             this.save();
         }
+
+        static async __syncFromDB(){
+            const user = UserModel.load();
+            const userDoc = doc(db, `users/${user.__get('uid')}`);
+            return (await getDoc(userDoc)).data();
+        }
         
         
         /*Save & Load*/
@@ -32,23 +38,12 @@ export const SettingsModel = (function () {
         }
         static load() {
             const local = MyStorage.session.get("settings");
-            const user = UserModel.load();
-            const userDoc = doc(db, `users/${user.__get('uid')}`);
-            getDoc(userDoc).then((data) => {
-                if (local !== null) {
-                    const localData = JSON.parse(local);
-                    return new SettingsModel(localData.lang, localData.volume, localData.sound, localData.fullscreen);
-                }else if(data !== null){
-                    if(data.data().settings){
-                        const storedData = JSON.parse(data.data().settings);
-                        return new SettingsModel(storedData.lang, storedData.volume, storedData.sound, storedData.fullscreen);
-                    }else{
-                        return new SettingsModel();
-                    };
-                }else{
-                    return new SettingsModel();
-                };
-            }).catch((e) => { console.error(e); return new SettingsModel(); });
+            const localData = JSON.parse(local);
+            if(localData !== null){
+                return new SettingsModel(localData.lang, localData.volume, localData.sound, localData.fullscreen);
+            }else{
+                return new SettingsModel("hu",50,true,false);
+            }
         }
         dispose() {
             MyStorage.session.remove("settings");

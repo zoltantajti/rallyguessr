@@ -8,7 +8,8 @@ import { SettingsModel } from '../../Datas/Models/SettingsModel';
 import FaIcon from '../Global/FaIcon';
 
 const Settings = ({ show, handleClose }) => {
-    const sm = SettingsModel.load() || new SettingsModel("hu",50, true, false);
+    const sm = SettingsModel.load();
+    console.log(sm);
     
     const { t, i18n } = useTranslation();
     const [langs, setLangs] = useState([]);
@@ -23,6 +24,13 @@ const Settings = ({ show, handleClose }) => {
     const eventOnSubmit = (event) => { event.preventDefault(); }
     useEffect(() => { 
         setLangs(availableLangs); 
+        setSound(sm.__get('sound'));
+        setSoundString(sm.__get('sound') ? "Sound ON" : "Sound OFF");
+        setSoundIcon(sm.__get('sound') ? "volume" : "volume-slash");
+        setFullScreen(sm.__get('fullscreen'));
+        setFullScreenString(sm.__get('fullscreen') ? "Fullscreen ON" : "Fullscreen OFF");
+        setFullScreenIcon(sm.__get('fullscreen') ? "maximize" : "minimize");
+        setVolume(sm.__get('volume'));
     },[]);
 
     const handleVolume = (event) => {

@@ -38,6 +38,12 @@
 }
 
 @media screen and (max-width: 500px) {
+    .carousel-caption-content{
+        width: 100vw;
+    }
+    .carousel-caption-content img {
+        width: 90vw;
+    }
     a.navbar-brand{
         display: flex;
         justify-content: center;

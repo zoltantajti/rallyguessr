@@ -34,7 +34,7 @@ export const getLevelMaxInMySkill = (exp) => {
 
 export const calculateXP = (score) => {
     const maxScore = 15000;
-    const maxXP = 100;
+    const maxXP = 200;
     let xp = (score / maxScore) * maxXP;
     if(xp < 0) xp = 0;
     if(xp > maxXP) xp = maxXP;
@@ -42,6 +42,6 @@ export const calculateXP = (score) => {
 }
 
 export const calcPercent = (val, max) => {
-    let percent = (val / max) * 100;
+    let percent = (val / max) * 200;
     return percent.toFixed(0);
 }

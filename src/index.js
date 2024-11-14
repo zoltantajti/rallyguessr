@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { TailSpin } from 'react-loader-spinner';
 import { usePromiseTracker } from 'react-promise-tracker';
 import App from './App';
 import './i18n'; 
+import { UserModel } from './Datas/Models/UserModel';
+import { SettingsModel } from './Datas/Models/SettingsModel';
 
 const LoadingIndicator = () => {
-  const { promiseInProgress } = usePromiseTracker();
+  useEffect(() => {
+    const sm = SettingsModel.load();
+  },[]);
 
+  const { promiseInProgress } = usePromiseTracker();
   return ( promiseInProgress && 
       <div style={{
           width: "100%",

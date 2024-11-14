@@ -13,7 +13,7 @@ import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 
 const Register = () => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [input, setInput] = useState({email: "",password: "", password_rep: ""});
     const [errors, setErrors] = useState(false);
@@ -38,13 +38,14 @@ const Register = () => {
                 await sendEmailVerification(userCredential.user);
                 const docRef = await doc(db, "users", userCredential.user.uid);
                 await setDoc(docRef, {
-                    username: userCredential.user.displayName,
+                    username: userCredential.user.displayName || input.email.split("@")[0],
                     avatar: '/images/noavatar.png',
                     perm: 1,
                     level: 1,
-                    exp: 1,
+                    exp: 0,
                     credits: 0,
-                    country: "N/A"
+                    country: "N/A",
+                    settings: JSON.stringify({lang:i18n.language,volume:50,sound:true,fullscreen:false})
                 });
                 setSuccess(true);
                 setErrors({form: "reg_success"});
