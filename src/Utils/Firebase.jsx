@@ -3,13 +3,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } fr
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBtwmm8ijYVds7GEcoJCmkqwgayKiHMMCA",
-  authDomain: "rallyguessr-df26f.firebaseapp.com",
-  projectId: "rallyguessr-df26f",
-  storageBucket: "rallyguessr-df26f.firebasestorage.app",
-  messagingSenderId: "508183936973",
-  appId: "1:508183936973:web:240953a297859e21008e84",
-  measurementId: "G-8Q82PTDZRK"
+  
 };
 
 // Initialize Firebase
