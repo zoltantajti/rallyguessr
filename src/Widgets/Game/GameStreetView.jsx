@@ -21,7 +21,7 @@ const GameStreetView = ({ pos }) => {
                 initStreetView();
             }else{
                 const script = document.createElement("script");
-                script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBxp4nRRK9uEp6lN8BToT9DQLPB7GD18oo`
+                script.src = `https://maps.googleapis.com/maps/api/js?key=****`
                 script.async = true;
                 script.defer = true;
                 script.onload = initStreetView;
